@@ -1,0 +1,45 @@
+name: EZCTL CLI CI/CD
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - run: pip install .
+      - run: python -m unittest discover -s tests -p '*_test.py'
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - uses: casperdcl/deploy-pypi@v2
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          pip: wheel -w dist/ --no-deps .
+        
+      - run: |
+          # Grab the version of the package
+          version=$(cat setup.py | grep version | cut -d "'" -f 2)
+          echo "Releasing for version $version"
+          echo "RELEASE_VERSION=$version" >> $GITHUB_ENV
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release v${{ env.RELEASE_VERSION }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
