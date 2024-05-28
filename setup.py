@@ -7,6 +7,8 @@ setup(
     install_requires=[
         'click'
     ],
+    email='kishorekarthik98@gmail.com',
+    author='Kishorekarthik P',
     entry_points='''
     [console_scripts]
     ezctl=ezctl:ezctl
