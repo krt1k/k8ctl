@@ -20,6 +20,7 @@ jobs:
 # .github/workflows/ci-cd.yml
 
   pypi-publish:
+    needs: [build]
     name: Upload release to PyPI
     runs-on: ubuntu-latest
     environment:
