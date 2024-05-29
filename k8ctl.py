@@ -11,41 +11,41 @@ rancher_url = os.getenv("RANCHER_URL")
 # log.addHandler(logging.StreamHandler())
 
 @click.group()
-def ezctl():
+def k8ctl():
     '''
-    ezctl is a command line tool for managing rancher multicluster kubernetes environments
+    k8ctl is a command line tool for managing rancher multicluster kubernetes environments
     '''
     pass
 
-@ezctl.group()
+@k8ctl.group()
 def cluster():
     '''
     Switch, list and get the current cluster
     '''
     pass
 
-@ezctl.group()
+@k8ctl.group()
 def env():
     '''
     Create, list and delete environment variables of a application
     '''
     pass
 
-@ezctl.group()
+@k8ctl.group()
 def list():
     '''
     List applications, web, timers, workers
     '''
     pass
 
-@ezctl.group()
+@k8ctl.group()
 def console():
     '''
     Connect to the application with railsconsole, psql, bash
     '''
     pass
 
-@ezctl.group()
+@k8ctl.group()
 def restart():
     '''
     Restart the applications, web, timers, workers
@@ -53,7 +53,7 @@ def restart():
     pass
 
 ## Main group
-@ezctl.command()
+@k8ctl.command()
 @click.option('--token', '-t', prompt=True, help='The Rancher bearer token to login to the cluster', required=True)
 @click.option('--url', '-u', prompt=True, help='The Rancher URL', default=rancher_url)
 @click.option('--cluster', '-c', help='The cluster name to login to')
@@ -69,7 +69,7 @@ def login(token, cluster, url):
     if result.returncode == 0:
         click.echo("Successfully logged in to the rancher")
 
-@ezctl.command(name='logs')
+@k8ctl.command(name='logs')
 @click.option('--app', '-a', help='The application name to get the logs', required=False)
 @click.option('--pod', '-p', help='The pod name to get the logs', required=False)
 @click.option('--follow', '-f', is_flag=True, help='Follow the logs')

@@ -1,4 +1,4 @@
-name: EZCTL CLI CI/CD
+name: K8CTL CLI CI/CD
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/ezctl  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/k8ctl  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:

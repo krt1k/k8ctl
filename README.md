@@ -1,20 +1,20 @@
-# EZCTL
+# k8ctl
 
-EZCTL is a command line tool for managing Rancher multicluster Kubernetes environments. It provides a set of commands to manage clusters, environment variables, applications, and more.
+k8ctl is a command line tool for managing Rancher multicluster Kubernetes environments. It provides a set of commands to manage clusters, environment variables, applications, and more.
 
 ## Installation
 
-To install EZCTL, you can use pip:
+To install k8ctl, you can use pip:
 
 ```bash
-pip install ezctl
+pip install k8ctl
 ```
 
 ## Usage
 
-Here are some of the commands you can use with EZCTL:
+Here are some of the commands you can use with k8ctl:
 
-- `ezctl`: Main command line tool.
+- `k8ctl`: Main command line tool.
 - `cluster`: Switch, list and get the current cluster.
 - `env`: Create, list and delete environment variables of an application.
 - `list`: List applications, web, timers, workers.
