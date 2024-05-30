@@ -21,16 +21,7 @@ Here are some of the commands you can use with k8ctl:
 - `console`: Connect to the application with railsconsole, psql, bash.
 - `restart`: Restart the applications, web, timers, workers.
 - `login`: Login to a cluster.
-- `get_logs`: Get the logs of the application.
-- `current_cluster`: Show the current cluster.
-- `list_clusters`: List all clusters.
-- `switch_cluster`: Switch to a cluster.
-- `list_env`: List all environment variables.
-- `set_env`: Set environment variables.
-- `list_apps`: List all applications.
-- `list_web`: List all web services.
-- `list_timers`: List all timers.
-- `list_workers`: List all workers.
+- `logs`: Get the logs of the application.
 
 For more detailed usage instructions, you can use the `-h` or `--help` flag with any command.
 
