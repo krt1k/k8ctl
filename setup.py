@@ -14,5 +14,5 @@ setup(
     entry_points='''
     [console_scripts]
     k8ctl=k8ctl:k8ctl
-    ''',
+    '''
 )
