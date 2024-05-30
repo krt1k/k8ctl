@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='k8ctl',
-    version='0.0.5',
+    version='0.0.6',
     packages=find_packages(),
     install_requires=[
         'click'
@@ -13,6 +13,6 @@ setup(
     long_description_content_type='text/markdown',
     entry_points='''
     [console_scripts]
-    k8ctl=k8ctl:k8ctl
+    k8ctl=k8ctl.k8ctl:k8ctl
     '''
 )

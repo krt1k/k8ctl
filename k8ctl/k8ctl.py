@@ -59,7 +59,7 @@ def k8ctl():
     '''
     k8ctl is a command line tool for managing rancher multicluster kubernetes environments
     '''
-    pass
+    print("calling")
 
 @k8ctl.group()
 def cluster():
