@@ -34,3 +34,7 @@ def current_cluster():
     result = subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     return result.stdout.decode('utf-8').strip()
+
+
+def hello_world():
+    print("Hello World")
