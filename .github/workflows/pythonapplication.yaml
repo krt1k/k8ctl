@@ -1,4 +1,4 @@
-name: k8ctl cli CI/CD
+name: K8CTL CLI CI/CD
 
 on:
   push:
