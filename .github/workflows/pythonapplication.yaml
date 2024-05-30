@@ -1,4 +1,4 @@
-name: Fancy Wallet CLI CI/CD
+name: k8ctl cli CI/CD
 
 on:
   push:
