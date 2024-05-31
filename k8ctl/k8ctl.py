@@ -1,7 +1,7 @@
 import click
 import subprocess
 import os
-import helper
+from . import helper
 # import logging
 
 rancher_url = os.getenv("RANCHER_URL")
