@@ -1,4 +1,5 @@
 __pycache__/*
 */__pycache__/*
-fancywallet.egg-info/*
+k8ctl.egg-info/*
+*/k8ctl.egg-info/*
 .vscode/*

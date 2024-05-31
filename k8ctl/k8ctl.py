@@ -1,7 +1,7 @@
 import click
 import subprocess
 import os
-# import helper
+import helper
 # import logging
 
 rancher_url = os.getenv("RANCHER_URL")
@@ -9,48 +9,6 @@ rancher_url = os.getenv("RANCHER_URL")
 # log = logging.getLogger(__name__)
 # log.setLevel(logging.DEBUG)
 # log.addHandler(logging.StreamHandler())
-
-## helper functions
-
-def check_token_validlity():
-    '''
-    Check if the token is still valid
-    '''
-    result = subprocess.run("kubectl get po", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    return result.returncode
-
-def list_env(app):
-    '''
-    List all environment variables
-    '''
-    cmd = """kubectl get secret {}""".format(app) + ''' -o jsonpath="{.data}" '''
-    cmd2= cmd + """ | jq -r 'to_entries|map("\(.key)=\(.value | @base64d)")|.[]' """
-
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-
-    # checking whether the secret exists
-    if result.returncode != 0:
-        print("Failed to list the environment variables. May be app not found")
-        return 404
-    
-    result2 = subprocess.run(cmd2, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, input=result.stdout)
-
-    return result2.stdout.decode('utf-8').strip()
-
-def current_cluster():
-    '''
-    Get the current cluster
-    '''
-    cmd = "kubectl config current-context"
-    result = subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-    return result.stdout.decode('utf-8').strip()
-
-
-def hello_world():
-    print("Hello World")
-
 
 ## Program starts here
 
@@ -181,7 +139,7 @@ def switch_cluster(cluster):
     else:
         current_cluster.returncode = 1
 
-    if current_cluster.returncode == 0 and check_token_validlity() == 0:
+    if current_cluster.returncode == 0 and helper.check_token_validlity() == 0:
         click.echo(f"Already logged into {cluster}")
         return 0
     
@@ -201,7 +159,7 @@ def switch_cluster(cluster):
             
     copy_config = subprocess.run(f"cp ~/.kube/{cluster} ~/.kube/config", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
-    if check_token_validlity() != 0:
+    if helper.check_token_validlity() != 0:
         click.echo("Token has expired. So, logging in again")
 
         subprocess.run(f"> ~/.kube/{cluster}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -271,7 +229,7 @@ def set_env(app, env_vars):
 
     env_vars = dict([env_var.split('=', 1) for env_var in env_vars])
 
-    last_env = list_env(app).strip()
+    last_env = helper.list_env(app).strip()
     last_env = dict([env.split('=', 1) for env in last_env.split('\n')])
 
     for key, value in env_vars.items():
@@ -372,7 +330,7 @@ def psql(app):
     '''
 
     # get the db url
-    env_vars = list_env(app)
+    env_vars = helper.list_env(app)
     if env_vars == 404:
         return
 
@@ -420,7 +378,8 @@ def bash(app):
 
     if result != 0:
         click.echo("Failed to connect to the bash")
-
+    elif result == 530:
+        click.echo("Exited from the bash")
 
 ## Restart group
 @restart.command(name='web')
