@@ -15,4 +15,4 @@ RUN wget https://github.com/rancher/cli/releases/download/v2.8.4/rancher-linux-a
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-RUN pip install k8ctl
+RUN pip install k8ctl==0.0.10

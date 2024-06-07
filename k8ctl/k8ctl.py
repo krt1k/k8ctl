@@ -5,6 +5,7 @@ from . import helper
 # import logging
 
 rancher_url = os.getenv("RANCHER_URL")
+rancher_token = os.getenv("RANCHER_TOKEN")
 
 # log = logging.getLogger(__name__)
 # log.setLevel(logging.DEBUG)
@@ -56,8 +57,8 @@ def restart():
 
 ## Main group
 @k8ctl.command()
-@click.option('--token', '-t', prompt=True, help='The Rancher bearer token to login to the cluster', required=True)
-@click.option('--url', '-u', prompt=True, help='The Rancher URL', default=rancher_url)
+@click.option('--token', '-t', help='The Rancher bearer token to login to the cluster', required=True, default=rancher_token)
+@click.option('--url', '-u', help='The Rancher URL', default=rancher_url, required=True)
 @click.option('--cluster', '-c', help='The cluster name to login to')
 def login(token, cluster, url):
     '''
