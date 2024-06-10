@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     jq \
     vim \
     wget \
+    bash-completion \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/rancher/cli/releases/download/v2.8.4/rancher-linux-amd64-v2.8.4.tar.gz && \
@@ -15,4 +16,9 @@ RUN wget https://github.com/rancher/cli/releases/download/v2.8.4/rancher-linux-a
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-RUN pip install k8ctl==0.0.10
+RUN echo 'source /usr/share/bash-completion/bash_completion' >> ~/.bashrc && \
+    echo "alias k=kubectl" >> ~/.bashrc && \
+    echo 'source <(kubectl completion bash)' >> ~/.bashrc && \
+    echo 'complete -o default -F __start_kubectl k' >> ~/.bashrc
+
+RUN pip install k8ctl==0.0.11

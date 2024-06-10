@@ -119,8 +119,8 @@ def switch_cluster(cluster):
     '''
     Switch to a cluster
     '''
-    if cluster == "aura":
-        cluster = "dev"
+    # if cluster == "aura":
+    #     cluster = "dev"
 
     ## file present but expired token
 
@@ -180,10 +180,11 @@ def switch_cluster(cluster):
         click.echo("Failed to copy cluster config!")
         return 1
     
-    if cluster == "dev":
-        subprocess.run("kubectl config set-context --current --namespace=protons", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-    else:
-        subprocess.run("kubectl config set-context --current --namespace=default", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    # if cluster == "dev":
+    #     subprocess.run("kubectl config set-context --current --namespace=protons", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    # else:
+    #     subprocess.run("kubectl config set-context --current --namespace=default", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    subprocess.run("kubectl config set-context --current --namespace=default", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
     click.echo(f"Switched to {cluster}")
 
