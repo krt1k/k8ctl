@@ -1,0 +1,7 @@
+Console:
+    psql:
+        - Create a deployment pod with a postgres client container
+    
+Logs:
+    - handle max print pods
+    - logs are closing for rental application
